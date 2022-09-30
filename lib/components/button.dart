@@ -13,13 +13,13 @@ class Button extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: isboxdec! ? boxdecoration : null,
-      child: FlatButton(
-          minWidth: 350,
-          height: 56,
+      child: TextButton(
           onPressed: pressed,
-          color: color,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          style: TextButton.styleFrom(
+              foregroundColor: color,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20)),
+              minimumSize: Size(350, 56)),
           child: Text(
             txt!,
             style: kSmalltext.copyWith(color: txtcolor),

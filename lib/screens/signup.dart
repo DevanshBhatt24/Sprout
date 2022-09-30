@@ -290,18 +290,14 @@ class _SignUpState extends State<SignUp> {
                       child: InkWell(
                         child: Container(
                           decoration: boxdecoration,
-                          child: FlatButton(
-                              minWidth: 350,
-                              height: 56,
+                          child: TextButton(
+                              style: flatbutton,
                               onPressed: () {
                                 setState(() {
                                   isloading = true;
                                 });
                                 posturl(username!, email!, password!);
                               },
-                              color: kPrimaryColor,
-                              shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(20)),
                               child: Text(
                                 "Sign In",
                                 style: kSmalltext.copyWith(color: Colors.white),
@@ -393,3 +389,8 @@ class _SignUpState extends State<SignUp> {
     });
   }
 }
+
+final ButtonStyle flatbutton = TextButton.styleFrom(
+    foregroundColor: kPrimaryColor,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    minimumSize: Size(350, 56));
