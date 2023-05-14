@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import '../components/blog.dart';
 import '../components/day.dart';
-import '../components/navbar.dart';
+import '../components/navigation/customnavbar.dart';
 import '../components/reminder.dart';
 import '../components/searchbar.dart';
 import 'login.dart';
@@ -20,10 +20,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   apiFetcher api = apiFetcher();
-  // Session _session = Session();
+  Session _session = Session();
+
   @override
   void initState() {
     // TODO: implement initState
+
     super.initState();
     // api.getdata("rose");
   }
@@ -32,10 +34,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // print(_session.getcookie());
     return Material(
-      color: Color(0xfffcfff6),
       child: Scaffold(
+        backgroundColor: Color(0xfffcfff6),
         body: Container(
-          margin: EdgeInsets.fromLTRB(16, 60, 16, 5),
+          margin: EdgeInsets.fromLTRB(16, 50, 16, 5),
           child: Stack(children: [
             Positioned(
               top: 10,

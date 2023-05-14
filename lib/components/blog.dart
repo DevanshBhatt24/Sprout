@@ -38,11 +38,17 @@ class _BlogState extends State<Blog> {
         .toList();
     final images = dom
         .querySelectorAll('div.et_pb_image_container > a > img')
-        .map((el) => el.attributes['data-src'])
+        .map((el) => el.attributes['src'])
         .toList();
-    print(images);
     // print(urls);
     // print(titles);
+    @override
+    void setState(fn) {
+      if (mounted) {
+        super.setState(fn);
+      }
+    }
+
     setState(() {
       articles = List.generate(
           titles.length,
@@ -125,7 +131,7 @@ class _BlogState extends State<Blog> {
               width: 355,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(12),
-                color: Colors.black.withOpacity(0.3),
+                color: Colors.black.withOpacity(.1),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
@@ -137,7 +143,7 @@ class _BlogState extends State<Blog> {
                         width: 330,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Colors.grey.shade500,
+                          color: kPrimaryColor.withOpacity(.17),
                         ),
                       ),
                       SizedBox(
@@ -148,7 +154,7 @@ class _BlogState extends State<Blog> {
                         width: 100,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(5),
-                          color: Colors.grey.shade500,
+                          color: kPrimaryColor.withOpacity(.17),
                         ),
                       )
                     ]),

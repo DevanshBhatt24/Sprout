@@ -20,6 +20,13 @@ const kBigtext = TextStyle(
     decoration: TextDecoration.none,
     color: Colors.black);
 
+const kbigtext = TextStyle(
+  fontFamily: 'Poppins',
+  fontSize: 24,
+  fontWeight: FontWeight.w600,
+  color: kPrimaryColor,
+  decoration: TextDecoration.none,
+);
 const kSmalltext = TextStyle(
   fontFamily: 'Poppins',
   fontSize: 18,
@@ -88,7 +95,13 @@ const kDescNametxt = TextStyle(
     fontFamily: 'Mada',
     fontWeight: FontWeight.w600,
     fontSize: 16,
-    decoration: TextDecoration.none);    
+    decoration: TextDecoration.none);
+const kDescLighttxt = TextStyle(
+    color: Color(0xff939393),
+    fontFamily: 'Mada',
+    fontWeight: FontWeight.w400,
+    fontSize: 13,
+    decoration: TextDecoration.none);
 //   suffixIconColor: Color(0xff5b5b5b),
 //   suffixIcon: GestureDetector(
 //     onTap: pressed,
@@ -98,3 +111,34 @@ const kDescNametxt = TextStyle(
 //     ),
 //   ),
 // );
+const kcartText = TextStyle(
+    color: kPrimaryColor,
+    fontFamily: 'Popins',
+    fontSize: 18,
+    fontWeight: FontWeight.w500);
+const ktotalText = TextStyle(
+    color: kPrimaryColor,
+    fontFamily: 'Popins',
+    fontSize: 20,
+    fontWeight: FontWeight.w700);
+const kplaceOrderButton = BoxDecoration(
+  color: kPrimaryColor,
+  borderRadius: BorderRadius.all(Radius.circular(8)),
+);
+const kOrderText = TextStyle(
+    color: Colors.white,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'Poppins',
+    fontSize: 18);
+
+const ksucessBigText = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 24,
+    color: kPrimaryColor,
+    fontWeight: FontWeight.w600);
+
+const ksucessSmallText = TextStyle(
+    fontFamily: 'Poppins',
+    fontSize: 16,
+    color: kPrimaryColor,
+    fontWeight: FontWeight.w400);

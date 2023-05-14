@@ -27,8 +27,8 @@ class _SearchPlantState extends State<SearchPlant> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    desc = _api.getdata(widget.data!);
-    // print(widget.data);
+    desc = _api.getplants(widget.data!);
+
     isLoading = false;
   }
 
@@ -79,7 +79,7 @@ class _SearchPlantState extends State<SearchPlant> {
                         ? Material(
                             child: Container(
                               color: Color(0xfffcfff6),
-                              height: MediaQuery.of(context).size.height / 1.3,
+                              height: MediaQuery.of(context).size.height / 1.4,
                               width: MediaQuery.of(context).size.width,
                               child: ListView.builder(
                                   itemCount: data.length,
@@ -88,13 +88,13 @@ class _SearchPlantState extends State<SearchPlant> {
                                           const EdgeInsets.only(bottom: 20.0),
                                       child: InkWell(
                                           onTap: () {
-                                            Navigator.push(
-                                                context,
+                                            Navigator.of(context).push(
                                                 CustomRoute(
-                                                    child: PlantHomepage(
-                                                  Data: data[index],
-                                                  iszen: false,
-                                                )));
+                                                    builder: (context) =>
+                                                        PlantHomepage(
+                                                          Data: data[index],
+                                                          iszen: false,
+                                                        )));
                                           },
                                           child: Container(
                                             height: 70,

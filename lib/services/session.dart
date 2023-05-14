@@ -19,16 +19,17 @@ class Session {
     http.Response response =
         await http.post(Uri.parse(url), body: data, headers: headers);
     updateCookie(response);
-    print(response.body);
+
     // print(json.decode(response.body));
     return json.decode(response.body);
   }
 
   Future<List<Name>> post2(String url, var data) async {
+    print(headers);
     http.Response response =
         await http.post(Uri.parse(url), body: data, headers: headers);
     updateCookie(response);
-    // print(response.body);
+    print(response.statusCode);
     // print(json.decode(response.body));
     if (response.statusCode == 200) {
       List info = jsonDecode(response.body);

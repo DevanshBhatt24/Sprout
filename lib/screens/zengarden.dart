@@ -30,7 +30,7 @@ class _ZenGardenState extends State<ZenGarden> {
     // print(cokkie!.substring(4));
     Map<String, String?>? data = {'cookie': cokkie!.substring(4)};
     var response = await _session.post2(
-        "https://sprout-plant-care-app.herokuapp.com/profile/mygarden", data);
+        "https://sprout-plant-care-app.onrender.com/profile/mygarden", data);
     plants = response;
     print(plants);
     setState(() {
@@ -84,8 +84,8 @@ class _ZenGardenState extends State<ZenGarden> {
                     ),
                     InkWell(
                       onTap: (() {
-                        Navigator.push(
-                            context, CustomRoute(child: Searchpage()));
+                        Navigator.of(context).push(
+                            CustomRoute(builder: (context) => Searchpage()));
                       }),
                       child: Container(
                         height: 40,
@@ -115,13 +115,11 @@ class _ZenGardenState extends State<ZenGarden> {
                             padding: const EdgeInsets.only(bottom: 20.0),
                             child: InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      CustomRoute(
-                                          child: PlantHomepage(
-                                        Data: plants[index],
-                                        iszen: true,
-                                      )));
+                                  Navigator.of(context).push(CustomRoute(
+                                      builder: (context) => PlantHomepage(
+                                            Data: plants[index],
+                                            iszen: true,
+                                          )));
                                 },
                                 child: CustomCard(
                                   show: false,

@@ -63,7 +63,8 @@ class LaunchScreen extends StatelessWidget {
               txt: "Create An Account",
               isboxdec: false,
               pressed: () {
-                Navigator.push(context, CustomRoute(child: SignUp()));
+                Navigator.of(context)
+                    .push(CustomRoute(builder: (context) => SignUp()));
               },
             )),
       ]),

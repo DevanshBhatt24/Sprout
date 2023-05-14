@@ -3,6 +3,7 @@ import 'package:Sprout/components/day.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:intl/intl.dart';
 
 class PlantSchedule extends StatefulWidget {
   const PlantSchedule({Key? key}) : super(key: key);
@@ -18,14 +19,19 @@ class _PlantScheduleState extends State<PlantSchedule> {
     super.initState();
   }
 
+  String returnMonth(DateTime date) {
+    return DateFormat.MMMM().format(date);
+  }
+
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Material(
+      color: Color(0xfffcfff6),
       child: Container(
-        padding: const EdgeInsets.fromLTRB(16, 70, 16, 0),
+        padding: const EdgeInsets.fromLTRB(16, 57, 16, 0),
         child: SingleChildScrollView(
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -35,7 +41,7 @@ class _PlantScheduleState extends State<PlantSchedule> {
                   width: 8,
                 ),
                 Text(
-                  "April",
+                  returnMonth(focusedDay),
                   style: TextStyle(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w600,

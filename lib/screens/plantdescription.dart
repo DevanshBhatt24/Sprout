@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:Sprout/components/customroute.dart';
+import 'package:Sprout/components/provider.dart';
 import 'package:Sprout/screens/zengarden.dart';
 import 'package:Sprout/services/session.dart';
 import 'package:Sprout/main.dart';
@@ -29,7 +30,7 @@ class PlantHomepage extends StatefulWidget {
 class _PlantHomepageState extends State<PlantHomepage> {
   bool? isselected;
   Name? data;
-  Cookie? select;
+  UserProvider? select;
   bool? isloading = false;
   Session _session = Session();
   FToast? _fToast;
@@ -41,7 +42,7 @@ class _PlantHomepageState extends State<PlantHomepage> {
     data = widget.Data!;
     _fToast = FToast();
     _fToast!.init(context);
-    select = Provider.of<Cookie>(context, listen: false);
+    select = Provider.of<UserProvider>(context, listen: false);
 
     isselected = select!.isselected;
 
@@ -74,7 +75,7 @@ class _PlantHomepageState extends State<PlantHomepage> {
               Positioned(
                 top: 328,
                 child: Container(
-                  height: 520,
+                  height: 470,
                   padding: EdgeInsets.all(16),
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
@@ -200,17 +201,18 @@ class _PlantHomepageState extends State<PlantHomepage> {
                             SharedPreferences sharedPreferences =
                                 await SharedPreferences.getInstance();
                             cook = sharedPreferences.getString('cookie');
-                            print(cook);
+                            print(cook!.substring(4));
+                            print(data!.id);
                             if (!widget.iszen!) {
                               var response = await _session.post(
-                                  "https://sprout-plant-care-app.herokuapp.com/plant/${data!.id}",
+                                  "https://sprout-plant-care-app.onrender.com/plant/${data!.id}",
                                   {"cookie": cook!.substring(4)});
                               print(response['message']);
                               if (response['message'] == "Plant saved") {
                                 setState(() {
                                   isloading = false;
-                                  Navigator.push(
-                                      context, CustomRoute(child: ZenGarden()));
+                                  Navigator.of(context).push(CustomRoute(
+                                      builder: (context) => ZenGarden()));
                                 });
                               } else {
                                 setState(() {
@@ -226,12 +228,12 @@ class _PlantHomepageState extends State<PlantHomepage> {
                             } else {
                               var response = await http.delete(
                                   Uri.parse(
-                                      "https://sprout-plant-care-app.herokuapp.com/profile/mygarden/${data!.id}"),
+                                      "https://sprout-plant-care-app.onrender.com/profile/mygarden/${data!.id}"),
                                   body: {"cookie": cook!.substring(4)});
                               setState(() {
                                 isloading = false;
-                                Navigator.push(
-                                    context, CustomRoute(child: ZenGarden()));
+                                Navigator.of(context).push(CustomRoute(
+                                    builder: (context) => ZenGarden()));
                                 print(select!.isselected);
                               });
                               print(response.body);

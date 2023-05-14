@@ -152,9 +152,9 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var status = prefs.getString('token');
     if (status != null) {
-      Navigator.push(context, CustomRoute(child: MainPage()));
+      Navigator.of(context).push(CustomRoute(builder: (context) => MainPage()));
     } else {
-      Navigator.push(context, CustomRoute(child: child));
+      Navigator.of(context).push(CustomRoute(builder: (context) => child));
     }
   }
 }

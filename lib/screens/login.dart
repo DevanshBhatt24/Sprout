@@ -6,6 +6,7 @@ import 'package:Sprout/screens/resetpass.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import '../components/customroute.dart';
+import '../components/provider.dart';
 import '../screens/signup.dart';
 import 'package:http/http.dart' as http;
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,7 +48,7 @@ class _LogInState extends State<LogIn> {
   bool showtext = false;
   String? cookie;
   FToast? _fToast;
-  final _formkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   void initState() {
     super.initState();
@@ -56,46 +57,43 @@ class _LogInState extends State<LogIn> {
   }
 
   Session _session = Session();
+
   posturl(String email, String pass) async {
     Map data = {
       'email': email,
       'password': pass,
     };
-    if (_formkey.currentState!.validate()) {
-      var response = await _session.post(
-          "https://sprout-plant-care-app.herokuapp.com/user/login", data);
 
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      var jsondata = null;
-      if (response['message'] == 'Login successful') {
-        jsondata = response;
-        final cookies = Provider.of<Cookie>(context, listen: false);
-        // print(jsondata['token']);
-        setState(() {
-          cookie = _session.getcookie();
-          print(cookie);
-          isloading = false;
+    var response = await _session.post(
+        "https://sprout-plant-care-app.onrender.com/user/login", data);
 
-          sharedPreferences.setString("token", jsondata['token']);
-          sharedPreferences.setString("cookie", cookie!);
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var jsondata = null;
+    if (response['message'] == 'Login successful') {
+      jsondata = response;
+      Provider.of<UserProvider>(context, listen: false).setUser();
+      // print(jsondata['token']);
+      setState(() {
+        cookie = _session.getcookie();
+        isloading = false;
 
-          Navigator.of(context).pushAndRemoveUntil(
-              CustomRoute(child: MainPage()), (Route<dynamic> route) => false);
-        });
+        sharedPreferences.setString("token", jsondata['token']);
+        sharedPreferences.setString("cookie", cookie!);
 
-        // print(cookie);
-      } else {
-        Navigator.of(context).push(
-          CustomRoute(child: LogIn()),
-        );
-        _fToast!.showToast(
-            child: customToast(
-              txt: "Incorrect Password and email",
-            ),
-            toastDuration: Duration(seconds: 2),
-            gravity: ToastGravity.BOTTOM);
-      }
+        Navigator.of(context).pushAndRemoveUntil(
+            CustomRoute(builder: (context) => MainPage()),
+            (Route<dynamic> route) => false);
+      });
+    } else {
+      Navigator.of(context).push(
+        CustomRoute(builder: (context) => LogIn()),
+      );
+      _fToast!.showToast(
+          child: customToast(
+            txt: "Incorrect Password or email",
+          ),
+          toastDuration: Duration(seconds: 2),
+          gravity: ToastGravity.BOTTOM);
     }
   }
 
@@ -155,6 +153,8 @@ class _LogInState extends State<LogIn> {
                             ),
                             TextFormField(
                               autofocus: false,
+                              autovalidateMode:
+                                  AutovalidateMode.onUserInteraction,
                               textInputAction: TextInputAction.next,
                               validator: (value) {
                                 if (value!.isEmpty) {
@@ -190,6 +190,8 @@ class _LogInState extends State<LogIn> {
                             ),
                             TextFormField(
                                 autofocus: false,
+                                autovalidateMode:
+                                    AutovalidateMode.onUserInteraction,
                                 textInputAction: TextInputAction.done,
                                 validator: (value) {
                                   if (value!.length < 6) {
@@ -223,11 +225,14 @@ class _LogInState extends State<LogIn> {
                         decoration: boxdecoration,
                         child: TextButton(
                             style: flatbutton,
-                            onPressed: () {
-                              setState(() {
-                                isloading = true;
-                              });
-                              posturl(email!, password!);
+                            onPressed: () async {
+                              if (_formkey.currentState!.validate()) {
+                                posturl(email!, password!);
+                                setState(() {
+                                  isloading = true;
+                                });
+                              }
+
                               // print(_session.getcookie());
                             },
                             child: Text(
@@ -246,7 +251,8 @@ class _LogInState extends State<LogIn> {
                   left: 230,
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.push(context, CustomRoute(child: Resetpass()));
+                      Navigator.of(context)
+                          .push(CustomRoute(builder: (context) => Resetpass()));
                     },
                     child: Text("Reset",
                         style: ksmalltext.copyWith(
@@ -286,7 +292,7 @@ class _LogInState extends State<LogIn> {
   }
 
   void kMovenext() {
-    Navigator.push(context, CustomRoute(child: SignUp()));
+    Navigator.of(context).push(CustomRoute(builder: (context) => SignUp()));
   }
 
 //   void sigin() async {
@@ -321,6 +327,6 @@ class _LogInState extends State<LogIn> {
 }
 
 final ButtonStyle flatbutton = TextButton.styleFrom(
-    foregroundColor: kPrimaryColor,
+    backgroundColor: kPrimaryColor,
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     minimumSize: Size(350, 56));

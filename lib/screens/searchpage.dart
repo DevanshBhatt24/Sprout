@@ -183,12 +183,10 @@ class _SearchWidget2State extends State<SearchWidget2> {
               ),
               style: styleHint,
               onSubmitted: (value) {
-                Navigator.push(
-                    context,
-                    CustomRoute(
-                        child: SearchPlant(
-                      data: value,
-                    )));
+                Navigator.of(context).push(CustomRoute(
+                    builder: (context) => SearchPlant(
+                          data: value,
+                        )));
               },
             ),
           ),
