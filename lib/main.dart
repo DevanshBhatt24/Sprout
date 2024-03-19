@@ -1,14 +1,12 @@
 import 'package:Sprout/components/navigation/customnavbar.dart';
 import 'package:Sprout/components/provider.dart';
 import 'package:Sprout/screens/shop/shop.dart';
-import 'package:Sprout/services/session.dart';
 import 'package:Sprout/screens/SearchPalnts.dart';
 import 'package:Sprout/screens/homescreen.dart';
 import 'package:Sprout/screens/login.dart';
 import 'package:Sprout/screens/resetpass.dart';
 import 'package:Sprout/screens/searchpage.dart';
 import 'package:Sprout/screens/signup.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../screens/lauchscreen.dart';
 import '../screens/loading.dart';
@@ -17,12 +15,8 @@ import '../screens/community.dart';
 import '../screens/schedule.dart';
 import '../screens/zengarden.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'components/searchbar.dart';
 import 'package:provider/provider.dart';
-import 'package:animations/animations.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 int? initScreen = 0;
@@ -74,6 +68,7 @@ class _MyAppState extends State<MyApp> {
         '/search': (context) => Searchpage(),
         '/serachplant': (context) => SearchPlant(),
         '/resetpass': (context) => Resetpass(),
+        '/shop': (context) => Shop(),
       },
       // theme: ThemeData(fontFamily: GoogleFonts.poppins().fontFamily),
       initialRoute: initScreen == 0 || initScreen == null ? "/" : "/mainpage",

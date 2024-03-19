@@ -27,6 +27,7 @@ class _SearchPlantState extends State<SearchPlant> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(widget.data);
     desc = _api.getplants(widget.data!);
 
     isLoading = false;

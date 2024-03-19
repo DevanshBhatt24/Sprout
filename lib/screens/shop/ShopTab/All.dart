@@ -54,67 +54,78 @@ class _AllPlantsState extends State<AllPlants> {
               color: kPrimaryColor,
             )),
           )
-        : SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "Popular",
-                  style: kSmalltext.copyWith(
-                      color: Color(0xff303030), fontWeight: FontWeight.w600),
+        : Or == null
+            ? Container(
+                child: Center(
+                    child: Text(
+                  'No Data',
+                  style: kBigtext,
+                )),
+              )
+            : SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Popular",
+                      style: kSmalltext.copyWith(
+                          color: Color(0xff303030),
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      height: 300,
+                      child: ListView.builder(
+                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          itemCount: Or!.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return ItemsList(
+                                isPlantdesc: false,
+                                prodid: Or![index].id,
+                                name: Or![index].name,
+                                price: Or![index].price.toString(),
+                                image: Or![index].img,
+                                category: Or![index].category,
+                                isfav: favrouite![index]);
+                          }),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      "Recomended",
+                      style: kSmalltext.copyWith(
+                          color: Color(0xff303030),
+                          fontWeight: FontWeight.w600),
+                    ),
+                    SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      height: 300,
+                      child: ListView.builder(
+                          padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
+                          itemCount: Or!.length,
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              child: ItemsList(
+                                isPlantdesc: false,
+                                name: Or![index].name,
+                                price: Or![index].price.toString(),
+                                image: Or![index].img,
+                                category: Or![index].category,
+                                isfav: favrouite![index],
+                              ),
+                            );
+                          }),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  height: 300,
-                  child: ListView.builder(
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      itemCount: Or!.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return ItemsList(
-                            isPlantdesc: false,
-                            name: Or![index].name,
-                            price: Or![index].price.toString(),
-                            image: Or![index].img,
-                            category: Or![index].category,
-                            isfav: favrouite![index]);
-                      }),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  "Recomended",
-                  style: kSmalltext.copyWith(
-                      color: Color(0xff303030), fontWeight: FontWeight.w600),
-                ),
-                SizedBox(
-                  height: 16,
-                ),
-                Container(
-                  height: 300,
-                  child: ListView.builder(
-                      padding: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                      itemCount: Or!.length,
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          child: ItemsList(
-                            isPlantdesc: false,
-                            name: Or![index].name,
-                            price: Or![index].price.toString(),
-                            image: Or![index].img,
-                            category: Or![index].category,
-                            isfav: favrouite![index],
-                          ),
-                        );
-                      }),
-                ),
-              ],
-            ),
-          );
+              );
   }
 }

@@ -1,6 +1,4 @@
 import 'package:Sprout/screens/login.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import '../components/button.dart';
 import '../components/constant.dart';
@@ -10,7 +8,6 @@ class Resetpass extends StatelessWidget {
   Resetpass({Key? key}) : super(key: key);
   final _formkey = GlobalKey<FormState>();
   String? email;
-  final _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     void kMovenext() {
@@ -18,9 +15,7 @@ class Resetpass extends StatelessWidget {
     }
 
     void resetpass() async {
-      await _auth.sendPasswordResetEmail(email: email!).then((value) =>
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => LogIn())));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => LogIn()));
     }
 
     return Material(

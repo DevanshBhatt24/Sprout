@@ -75,6 +75,7 @@ class _IndoorPlantsState extends State<IndoorPlants> {
                       itemBuilder: (context, index) {
                         return ItemsList(
                             isPlantdesc: false,
+                            prodid: Or![index].id,
                             name: Or![index].name,
                             price: Or![index].price.toString(),
                             image: Or![index].img,

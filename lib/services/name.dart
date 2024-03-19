@@ -62,19 +62,62 @@ class order {
         notes = json['notes'];
 }
 
+class cartModel {
+  final String? cartid;
+  final List<dynamic>? items;
+  cartModel({this.cartid, this.items});
+  cartModel.fromJson(Map<String, dynamic> json)
+      : cartid = json["_id"],
+        items = json["items"];
+}
+
+class Product {
+  final String? itemId;
+  final String? productId;
+  final String? image;
+  final String? name;
+  final int? price;
+  final int? quantity;
+  Product(
+      {this.itemId,
+      this.name,
+      this.image,
+      this.productId,
+      this.quantity,
+      this.price});
+  Product.fromJson(Map<String, dynamic> json)
+      : itemId = json["_id"],
+        productId = json["productId"],
+        name = json['productName'],
+        image = json["productImage"],
+        quantity = json["quantity"],
+        price = json["productPrice"];
+}
+
 class shop {
+  final String? id;
   final int? price;
   final String? img;
   final String? name;
   final String? description;
   final String? category;
-  shop({this.category, this.description, this.name, this.img, this.price});
+  final bool? isfav;
+  shop(
+      {this.id,
+      this.category,
+      this.description,
+      this.name,
+      this.img,
+      this.price,
+      this.isfav});
   shop.fromJson(Map<String, dynamic> json)
       : img = json['image'],
         price = json['price'],
         category = json["category"],
         name = json['name'],
-        description = json['description'];
+        description = json['description'],
+        isfav = json['isFavourite'],
+        id = json["_id"];
 }
 
 class apiFetcher {
@@ -93,16 +136,34 @@ class apiFetcher {
     }
   }
 
+  Future<List<shop>> getShopItmes(String value) async {
+    String planturl = hosturl + "shop/search?name=";
+    List<shop> data = [];
+    Uri url = Uri.parse(planturl + value);
+    http.Response response = await http.get(url);
+    print(response.body);
+    if (response.statusCode == 200) {
+      List info = jsonDecode(response.body);
+      print(info);
+      data = info.map((data) => shop.fromJson(data)).toList();
+      return data;
+    } else {
+      return data;
+    }
+  }
+
   Future<List<shop>> getshopdata() async {
     String url = hosturl + "shop";
     Uri ur = Uri.parse(url);
+    List<shop> data = [];
     http.Response response = await http.get(ur);
 
     if (response.statusCode == 200) {
       List info = jsonDecode(response.body);
-      return info.map((data) => shop.fromJson(data)).toList();
+      data = info.map((data) => shop.fromJson(data)).toList();
+      return data;
     } else {
-      throw Exception("Unexpected Error");
+      return data;
     }
   }
 
@@ -143,6 +204,71 @@ class apiFetcher {
       return info.map((data) => shop.fromJson(data)).toList();
     } else {
       throw Exception("Unexpected Error");
+    }
+  }
+
+  Future<cartModel> getCartItmes(var headers) async {
+    String planturl = hosturl + "cart";
+    cartModel data = new cartModel();
+    Uri url = Uri.parse(planturl);
+    http.Response response = await http.get(url, headers: headers);
+    if (response.statusCode == 200) {
+      data = new cartModel.fromJson(jsonDecode(response.body));
+      return data;
+    } else {
+      return data;
+    }
+  }
+
+  Future<Map> addCartItmes(String? id, var headers) async {
+    String planturl = hosturl + "cart/product/" + id!;
+    var res = null;
+    Uri url = Uri.parse(planturl);
+    http.Response response = await http.post(url, headers: headers);
+    print(response.statusCode);
+    if (response.statusCode == 201) {
+      res = jsonDecode(response.body);
+      return res;
+    } else {
+      return res;
+    }
+  }
+
+  Future<Map> increaseItmes(String? cartid, String? itemid, var headers) async {
+    print(cartid);
+    print(itemid);
+    String planturl =
+        hosturl + "cart/" + cartid! + "/item/" + itemid! + '/increase';
+    var res;
+    Uri url = Uri.parse(planturl);
+    http.Response response = await http.post(url, headers: headers);
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      res = jsonDecode(response.body);
+      return res;
+    } else {
+      return res;
+    }
+  }
+
+  Future<Map> decreaseItmes(String? cartid, String? itemid, var headers) async {
+    print(cartid);
+    print(itemid);
+    String planturl =
+        hosturl + "cart/" + cartid! + "/item/" + itemid! + '/decrease';
+    var res;
+    Uri url = Uri.parse(planturl);
+    http.Response response = await http.delete(url, headers: headers);
+    print(response.statusCode);
+    print(response.body);
+
+    if (response.statusCode == 200) {
+      res = jsonDecode(response.body);
+      return res;
+    } else {
+      return res;
     }
   }
 }

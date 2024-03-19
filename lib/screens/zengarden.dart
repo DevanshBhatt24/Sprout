@@ -25,10 +25,9 @@ class _ZenGardenState extends State<ZenGarden> {
   List<Name> plants = [];
   Session _session = Session();
   zenplant() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? cokkie = prefs.getString("cookie");
-    // print(cokkie!.substring(4));
-    Map<String, String?>? data = {'cookie': cokkie!.substring(4)};
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    String token = sharedPreferences.getString('token')!;
+    Map<String, String>? data = {'auth-token': token};
     var response = await _session.post2(
         "https://sprout-plant-care-app.onrender.com/profile/mygarden", data);
     plants = response;

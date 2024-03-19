@@ -72,12 +72,12 @@ class _SignUpState extends State<SignUp> {
 
       Provider.of<UserProvider>(context, listen: false).setUser();
       setState(() {
-        cookie = _session.getcookie();
-        print(cookie);
+        // cookie = _session.getcookie();
+        // print(cookie);
         sharedPreferences.setString("token", jsondata['token']);
         print(sharedPreferences.getString("token"));
 
-        sharedPreferences.setString("cookie", cookie!);
+        // sharedPreferences.setString("cookie", cookie!);
         isloading = false;
         Navigator.of(context).push(
           CustomRoute(builder: (context) => MainPage()),

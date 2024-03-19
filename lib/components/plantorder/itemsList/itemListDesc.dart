@@ -154,14 +154,6 @@ class ItemsListDesc extends StatelessWidget {
             SizedBox(
               height: 30,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [BuyButton(), CartButton()],
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            Reviews()
           ],
         ),
       ),

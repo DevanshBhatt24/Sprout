@@ -20,5 +20,5 @@ class CustomRoute extends MaterialPageRoute {
   }
 
   @override
-  Duration get transitionDuration => const Duration(milliseconds: 400);
+  Duration get transitionDuration => const Duration(milliseconds: 250);
 }

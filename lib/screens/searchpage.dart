@@ -1,61 +1,19 @@
-import 'package:Sprout/screens/plantdescription.dart';
 import 'package:Sprout/screens/SearchPalnts.dart';
-import 'package:Sprout/services/name.dart';
-import 'package:Sprout/screens/zengarden.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 
 import '../components/constant.dart';
 import '../components/customroute.dart';
-import '../components/searchbar.dart';
 
 class Searchpage extends StatefulWidget {
-  const Searchpage({Key? key}) : super(key: key);
+  final bool? isShop;
+  const Searchpage({this.isShop});
 
   @override
   State<Searchpage> createState() => _SearchpageState();
 }
 
 class _SearchpageState extends State<Searchpage> {
-  final plants = [
-    "African sheepbush",
-    "Alder",
-    "Black alder",
-    "Common alder",
-    "False alder",
-    "Gray alder",
-    "Speckled alder",
-    "White alder",
-    "Almond",
-    "Aloe vera",
-    "Amaranth",
-    "Foxtail amaranth",
-    "Ambrosia",
-    "Tall ambrosia",
-    "Amy root",
-    "Angel trumpet",
-    "Apple",
-    "Apricot",
-    "Arfaj",
-    "Arizona sycamore",
-    "Arrowwood",
-    "Indian arrowwood",
-    "Ash",
-    "Black ash",
-    "Blue ash",
-    "Cane ash",
-    "European ash",
-    "Green ash",
-    "Maple ash",
-    "Red ash",
-    "River ash",
-    "Swamp ash",
-    "White ash",
-    "Water ash",
-    "Azolla",
-    "Carolina"
-  ];
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -176,7 +134,7 @@ class _SearchWidget2State extends State<SearchWidget2> {
                       "assets/images/fluent_scan-dash-16-regular.png"),
                   onPressed: () {},
                 ),
-                hintText: "Search plant",
+                hintText: "Search",
                 hintStyle: kHintText.copyWith(
                     fontWeight: FontWeight.w500, fontSize: 18),
                 border: InputBorder.none,

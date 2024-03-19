@@ -3,12 +3,15 @@ import 'package:Sprout/components/customroute.dart';
 import 'package:Sprout/components/plantorder/cart/shopcart.dart';
 import 'package:Sprout/screens/account.dart';
 import 'package:Sprout/screens/searchpage.dart';
+import 'package:Sprout/screens/shop/Search/searchitem.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../services/name.dart';
 
 class SearchWidget extends StatelessWidget {
   final bool? isSearch;
+
   SearchWidget({this.isSearch});
   @override
   Widget build(BuildContext context) {
@@ -38,11 +41,11 @@ class SearchWidget extends StatelessWidget {
                     width: 15,
                   ),
                   Text(
-                    "Search plant",
+                    "Search",
                     style: kHintText.copyWith(fontSize: 18),
                   ),
                   SizedBox(
-                    width: 105,
+                    width: 145,
                   ),
                   ImageIcon(AssetImage(
                       "assets/images/fluent_scan-dash-16-regular.png"))
@@ -76,15 +79,17 @@ class SearchWidget extends StatelessWidget {
   }
 }
 
-class SearchBar extends StatelessWidget {
-  SearchBar();
+class SearchBar1 extends StatelessWidget {
+  final String? cartid;
+
+  SearchBar1({this.cartid});
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         GestureDetector(
           onTap: () => Navigator.of(context)
-              .push(CustomRoute(builder: (context) => Searchpage())),
+              .push(CustomRoute(builder: (context) => SearchItem())),
           child: Container(
               height: 45,
               width: 250,
@@ -106,11 +111,11 @@ class SearchBar extends StatelessWidget {
                     width: 15,
                   ),
                   Text(
-                    "Search plant",
+                    "Search",
                     style: kHintText.copyWith(fontSize: 18),
                   ),
                   SizedBox(
-                    width: 55,
+                    width: 105,
                   ),
                   ImageIcon(AssetImage(
                       "assets/images/fluent_scan-dash-16-regular.png"))

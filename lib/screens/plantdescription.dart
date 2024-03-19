@@ -34,7 +34,6 @@ class _PlantHomepageState extends State<PlantHomepage> {
   bool? isloading = false;
   Session _session = Session();
   FToast? _fToast;
-  String? cook;
   @override
   void initState() {
     // TODO: implement initState
@@ -200,13 +199,15 @@ class _PlantHomepageState extends State<PlantHomepage> {
                             });
                             SharedPreferences sharedPreferences =
                                 await SharedPreferences.getInstance();
-                            cook = sharedPreferences.getString('cookie');
-                            print(cook!.substring(4));
+                            print(sharedPreferences.getString('token'));
+
+                            String token =
+                                sharedPreferences.getString('token')!;
                             print(data!.id);
                             if (!widget.iszen!) {
-                              var response = await _session.post(
+                              var response = await _session.addplant(
                                   "https://sprout-plant-care-app.onrender.com/plant/${data!.id}",
-                                  {"cookie": cook!.substring(4)});
+                                  {"auth-token": token});
                               print(response['message']);
                               if (response['message'] == "Plant saved") {
                                 setState(() {
@@ -229,7 +230,7 @@ class _PlantHomepageState extends State<PlantHomepage> {
                               var response = await http.delete(
                                   Uri.parse(
                                       "https://sprout-plant-care-app.onrender.com/profile/mygarden/${data!.id}"),
-                                  body: {"cookie": cook!.substring(4)});
+                                  headers: {'auth-token': token});
                               setState(() {
                                 isloading = false;
                                 Navigator.of(context).push(CustomRoute(

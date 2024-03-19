@@ -62,14 +62,14 @@ class _BlogState extends State<Blog> {
   }
 
   final PageController? _controller = PageController();
-  var _currPage = 0.0;
+  var _currPage = 0;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     _controller!.addListener(() {
       setState(() {
-        _currPage = _controller!.page!;
+        _currPage = _controller!.page!.toInt();
       });
     });
     getwebsitedata();

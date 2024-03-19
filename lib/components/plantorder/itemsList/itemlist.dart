@@ -12,8 +12,10 @@ class ItemsList extends StatelessWidget {
   String? category;
   bool? isfav;
   bool? isPlantdesc;
+  String? prodid;
   ItemsList(
       {this.name,
+      this.prodid,
       this.price,
       this.category,
       this.image,
@@ -33,6 +35,7 @@ class ItemsList extends StatelessWidget {
                 name: name,
                 category: category,
                 isfav: isfav,
+                prodid: prodid,
               );
             }))),
         child: Container(

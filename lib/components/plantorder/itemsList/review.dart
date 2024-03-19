@@ -26,6 +26,7 @@ class _ReviewsState extends State<Reviews> with WidgetsBindingObserver {
     double w = MediaQuery.of(context).size.width;
 
     return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16),
       child: Column(children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

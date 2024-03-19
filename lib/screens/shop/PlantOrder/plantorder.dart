@@ -2,6 +2,8 @@ import 'package:Sprout/components/plantorder/itemsList/itemlist.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../../components/plantorder/itemsList/itemListDesc.dart';
+import '../../../components/plantorder/itemsList/review.dart';
+import '../../../components/plantorder/orderbutton/orderbutton.dart';
 
 class Plantorder extends StatelessWidget {
   String? image;
@@ -9,9 +11,17 @@ class Plantorder extends StatelessWidget {
   String? price;
   String? category;
   bool? isfav;
-  Plantorder({this.image, this.category, this.name, this.price, this.isfav});
+  String? prodid;
+  Plantorder(
+      {this.image,
+      this.category,
+      this.name,
+      this.price,
+      this.isfav,
+      this.prodid});
   @override
   Widget build(BuildContext context) {
+    print(prodid);
     double h = MediaQuery.of(context).size.height;
     ScrollController _controller = ScrollController(initialScrollOffset: h);
     // _controller.animateTo(
@@ -88,6 +98,14 @@ class Plantorder extends StatelessWidget {
                 desc:
                     'Calatheas need specific care in order to thrive. They need a consistently warm spot and bright but indirect light – keep them out of direct sunshine. Keep the soil moist from spring to autumn, and provide some humidity by misting the leaves daily or..',
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [BuyButton(id: prodid), CartButton(id: prodid)],
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Reviews(),
               Padding(
                 padding: EdgeInsets.all(16),
                 child: Divider(

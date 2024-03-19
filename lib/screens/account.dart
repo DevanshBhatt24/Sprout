@@ -4,7 +4,6 @@ import 'package:Sprout/components/provider.dart';
 import 'package:Sprout/screens/lauchscreen.dart';
 import 'package:Sprout/screens/loading.dart';
 import 'package:Sprout/services/session.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
@@ -24,16 +23,16 @@ class _AccountdetailsState extends State<Accountdetails> {
   Session _sess = Session();
   signout() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? cook = sharedPreferences.getString('cookie');
-    Map<String, String?>? data = {'cookie': cook!.substring(4)};
-    print(data);
-    var res = _sess.post(
+    String token = sharedPreferences.getString('token')!;
+    Map<String, String>? data = {'auth-token': token};
+
+    var res = await _sess.signout(
         "https://sprout-plant-care-app.onrender.com/user/logout", data);
     print(res);
     Provider.of<UserProvider>(context, listen: false).unsetUser();
     sharedPreferences.clear();
-    print(sharedPreferences.getString("cookie"));
-    print(sharedPreferences.getString("token"));
+    // print(sharedPreferences.getString("cookie"));
+    // print(sharedPreferences.getString("token"));
     Navigator.of(context)
         .push(CustomRoute(builder: (context) => SplashScreen()));
   }

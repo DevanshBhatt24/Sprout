@@ -9,7 +9,6 @@ import '../components/customroute.dart';
 import '../components/provider.dart';
 import '../screens/signup.dart';
 import 'package:http/http.dart' as http;
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -72,14 +71,11 @@ class _LogInState extends State<LogIn> {
     if (response['message'] == 'Login successful') {
       jsondata = response;
       Provider.of<UserProvider>(context, listen: false).setUser();
-      // print(jsondata['token']);
       setState(() {
-        cookie = _session.getcookie();
+        // cookie = _session.getcookie();
         isloading = false;
-
         sharedPreferences.setString("token", jsondata['token']);
-        sharedPreferences.setString("cookie", cookie!);
-
+        // sharedPreferences.setString("cookie", cookie!)
         Navigator.of(context).pushAndRemoveUntil(
             CustomRoute(builder: (context) => MainPage()),
             (Route<dynamic> route) => false);
@@ -268,7 +264,7 @@ class _LogInState extends State<LogIn> {
                       style: ksmalltext,
                     )),
                 Positioned(
-                  top: 685,
+                  top: 675,
                   left: 35,
                   child: Text(
                     "Don't have any account?",
@@ -276,7 +272,7 @@ class _LogInState extends State<LogIn> {
                   ),
                 ),
                 Positioned(
-                  top: 685,
+                  top: 675,
                   left: 220,
                   child: GestureDetector(
                     onTap: kMovenext,
